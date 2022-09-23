@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.swipegame.HelloController">
+   <children>
+      <ImageView fx:id="MasterCard" fitHeight="215.0" fitWidth="173.0" layoutX="14.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" />
+      <HBox layoutX="239.0" layoutY="63.0" prefHeight="183.0" prefWidth="947.0">
+         <children>
+            <ImageView fx:id="p2Img1" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP2Img1" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2Img2" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP2Img2" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2Img3" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP2Img3" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2Img4" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP2Img4" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2Img5" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP2Img5" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <ImageView fx:id="PtsDeck" fitHeight="190.0" fitWidth="246.0" layoutX="27.0" layoutY="463.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="dealMaster" layoutX="46.0" layoutY="50.0" mnemonicParsing="false" onAction="#dealMaster" text="Deal Master Card" />
+      <HBox layoutX="239.0" layoutY="433.0" prefHeight="183.0" prefWidth="947.0">
+         <children>
+            <ImageView fx:id="p1Img1" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img1" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1Img2" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img2" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1Img3" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img3" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1Img4" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img4" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1Img5" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img5" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="144.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="144.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="144.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="144.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="144.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <Button fx:id="drawCard1" layoutX="43.0" layoutY="662.0" mnemonicParsing="false" onAction="#drawCard1" text="Draw P1" />
+      <Button fx:id="drawCard2" layoutX="136.0" layoutY="662.0" mnemonicParsing="false" onAction="#drawCard2" text="Draw P2" />
+      <Button fx:id="powerButton" layoutX="221.0" layoutY="662.0" mnemonicParsing="false" onAction="#isPoweringUp" text="Power Up" />
+      <Button fx:id="passTurn" layoutX="314.0" layoutY="662.0" mnemonicParsing="false" onAction="#isMyTurn" text="Pass Turn" />
+      <Button fx:id="swipeButton" layoutX="403.0" layoutY="662.0" mnemonicParsing="false" onAction="#isSwiping" text="Swipe" />
+   </children>
+</AnchorPane>
