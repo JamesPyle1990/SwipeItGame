@@ -2,7 +2,7 @@ package com.example.swipegame;
 
 import java.util.Scanner;
 
-public class Game {
+public class ConsoleGameTest {
     public static void main(String[] args) {
 
         //Create Scanner

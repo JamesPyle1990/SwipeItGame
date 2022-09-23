@@ -3,17 +3,15 @@ package com.example.swipegame;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.*;
 import java.util.Iterator;
-import java.util.concurrent.locks.Condition;
 
 
-public class HelloController implements Initializable {
+public class SwipeGameController implements Initializable {
     @FXML
     public ImageView HandImage1;
     public ImageView HandImage2;
