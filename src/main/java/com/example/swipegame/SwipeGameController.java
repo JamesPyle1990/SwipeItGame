@@ -31,6 +31,8 @@ public class SwipeGameController implements Initializable {
     public Button powerButton;
     public Button passTurn;
     public Button swipeButton;
+    public ImageView activeCard;
+    public Button diceRoll;
 
     @FXML
     private Button changeMaster;
@@ -55,6 +57,7 @@ public class SwipeGameController implements Initializable {
     private boolean isSwiping = false;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -77,6 +80,30 @@ public class SwipeGameController implements Initializable {
     @FXML public boolean isSwiping() {
         System.out.println("Am I Swiping? " + isSwiping);
         return isSwiping = true;
+    }
+    @FXML  public int diceRoll() {
+        int blackDie = (int) (Math.random() * 6) + 1;
+        int whiteDie = (int) (Math.random() * 6) + 1;
+        int winner = 0;
+        for (int i = 0; i < 1; i++) {
+            System.out.println("Black Die is : " + blackDie);
+            System.out.println("White Die is : " + whiteDie);
+
+            if (blackDie > whiteDie) {
+                winner = blackDie;
+                System.out.println("Black Die WIN");
+            }
+            if (blackDie < whiteDie) {
+                winner = whiteDie;
+
+                System.out.println("White Die WIN");
+            }
+            if (blackDie == whiteDie) {
+                winner = 0;
+                System.out.println("TIE!");
+            }
+        }
+        return winner;
     }
 
     @FXML
@@ -141,6 +168,8 @@ public class SwipeGameController implements Initializable {
         else if (isPoweringUp) {
             activeTurnHand.cards.add(imageHand1.cards.get(0));
             p1Img1.setImage(null);
+            activeCard.setImage(activeTurnHand.dealHandImage(0).getImage(activeTurnHand.dealHandImage(0)));
+            System.out.println("Active Card is " + activeTurnHand.showHand());
         }
 
 
@@ -153,6 +182,8 @@ public class SwipeGameController implements Initializable {
             System.out.println("Player 1's Hand is now : \n" + imageTestDeck[0].showHand() + "\n" +
                     "Player 2's Hand is now: \n" + imageTestDeck[1].showHand() + "Active Turn Hand is " + imageTestDeck[3].showHand() + "\n");
             p1Img1.setImage(null);
+
+
         }
 
     }
@@ -178,6 +209,14 @@ public class SwipeGameController implements Initializable {
             p1Img2.setImage(imageTestDeck[3].dealHandImage(0).getImage(imageTestDeck[3].dealHandImage(0)));
 
 
+        }
+
+        else if (isPoweringUp) {
+            activeTurnHand.cards.add(imageHand1.cards.get(1));
+            p1Img1.setImage(null);
+            activeCard.setImage(activeTurnHand.dealHandImage(0).getImage(activeTurnHand.dealHandImage(0)));
+            System.out.println("Active Card is " + activeTurnHand.showHand());
+
         } else{
 
             imageHand1.cards.remove(1);
@@ -190,29 +229,109 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void swipeP1Img3() {
-        imageHand1.cards.remove(2);
 
-        System.out.println("Player 1's Hand is now : \n" + imageTestDeck[0].showHand() + "\n" +
-                "Player 2's Hand is now: \n" + imageTestDeck[1].showHand());
-        p1Img3.setImage(null);
+        if(imageHand1.cards.get(2).toString().contains("Black blackSwipe")&& isPoweringUp && isMyTurn && activeTurnHand != null) {
+            p1Img2.setImage(imageTestDeck[3].dealHandImage(0).getImage(imageTestDeck[3].dealHandImage(0)));
+
+        }
+
+        else if(imageHand1.cards.get(2).toString().contains("Silver silverSwipe")&& isPoweringUp&& isMyTurn) {
+            p1Img2.setImage(imageTestDeck[3].dealHandImage(0).getImage(imageTestDeck[3].dealHandImage(0)));
+
+
+        }
+
+        else if(imageHand1.cards.get(2).toString().contains("Gold goldSwipe")&& isPoweringUp && isMyTurn) {
+            p1Img2.setImage(imageTestDeck[3].dealHandImage(0).getImage(imageTestDeck[3].dealHandImage(0)));
+
+
+        }
+
+        else if (isPoweringUp) {
+            activeTurnHand.cards.add(imageHand1.cards.get(2));
+            p1Img1.setImage(null);
+            activeCard.setImage(activeTurnHand.dealHandImage(0).getImage(activeTurnHand.dealHandImage(0)));
+            System.out.println("Active Card is " + activeTurnHand.showHand());
+
+        }
+
+
+        else{
+            imageHand1.cards.remove(2);
+
+            System.out.println("Player 1's Hand is now : \n" + imageTestDeck[0].showHand() + "\n" +
+                    "Player 2's Hand is now: \n" + imageTestDeck[1].showHand());
+            p1Img3.setImage(null);
+        }
     }
 
     @FXML
     public void swipeP1Img4() {
-        imageHand1.cards.remove(3);
 
-        System.out.println("Player 1's Hand is now : \n" + imageTestDeck[0].showHand() + "\n" +
-                "Player 2's Hand is now: \n" + imageTestDeck[1].showHand());
-        p1Img4.setImage(null);
+        if(imageHand1.cards.get(3).toString().contains("Black blackSwipe")&& isPoweringUp && isMyTurn && activeTurnHand != null) {
+            p1Img2.setImage(imageTestDeck[3].dealHandImage(0).getImage(imageTestDeck[3].dealHandImage(0)));
+
+        }
+
+        else if(imageHand1.cards.get(3).toString().contains("Silver silverSwipe")&& isPoweringUp&& isMyTurn) {
+            p1Img2.setImage(imageTestDeck[3].dealHandImage(0).getImage(imageTestDeck[3].dealHandImage(0)));
+
+
+        }
+
+        else if(imageHand1.cards.get(3).toString().contains("Gold goldSwipe")&& isPoweringUp && isMyTurn) {
+            p1Img2.setImage(imageTestDeck[3].dealHandImage(0).getImage(imageTestDeck[3].dealHandImage(0)));
+
+
+        }
+
+        else if (isPoweringUp) {
+            activeTurnHand.cards.add(imageHand1.cards.get(3));
+            p1Img1.setImage(null);
+            activeCard.setImage(activeTurnHand.dealHandImage(0).getImage(activeTurnHand.dealHandImage(0)));
+            System.out.println("Active Card is " + activeTurnHand.showHand());
+
+        }
+
+        else{
+
+            imageHand1.cards.remove(3);
+
+            System.out.println("Player 1's Hand is now : \n" + imageTestDeck[0].showHand() + "\n" +
+                    "Player 2's Hand is now: \n" + imageTestDeck[1].showHand());
+            p1Img4.setImage(null);
+        }
     }
 
     @FXML
     public void swipeP1Img5() {
-        imageHand1.cards.remove(3);
 
-        System.out.println("Player 1's Hand is now : \n" + imageTestDeck[0].showHand() + "\n" +
-                "Player 2's Hand is now: \n" + imageTestDeck[1].showHand());
-        p1Img5.setImage(null);
+        if (imageHand1.cards.get(4).toString().contains("Black blackSwipe") && isPoweringUp && isMyTurn && activeTurnHand != null) {
+            p1Img2.setImage(imageTestDeck[3].dealHandImage(0).getImage(imageTestDeck[3].dealHandImage(0)));
+
+        } else if (imageHand1.cards.get(4).toString().contains("Silver silverSwipe") && isPoweringUp && isMyTurn) {
+            p1Img2.setImage(imageTestDeck[3].dealHandImage(0).getImage(imageTestDeck[3].dealHandImage(0)));
+
+
+        } else if (imageHand1.cards.get(4).toString().contains("Gold goldSwipe") && isPoweringUp && isMyTurn) {
+            p1Img2.setImage(imageTestDeck[3].dealHandImage(0).getImage(imageTestDeck[3].dealHandImage(0)));
+
+
+        } else if (isPoweringUp) {
+            activeTurnHand.cards.add(imageHand1.cards.get(4));
+            p1Img1.setImage(null);
+            activeCard.setImage(activeTurnHand.dealHandImage(0).getImage(activeTurnHand.dealHandImage(0)));
+            System.out.println("Active Card is " + activeTurnHand.showHand());
+
+
+        } else {
+
+            imageHand1.cards.remove(4);
+
+            System.out.println("Player 1's Hand is now : \n" + imageTestDeck[0].showHand() + "\n" +
+                    "Player 2's Hand is now: \n" + imageTestDeck[1].showHand());
+            p1Img5.setImage(null);
+        }
     }
 
 
@@ -222,9 +341,15 @@ public class SwipeGameController implements Initializable {
 
         // Condition if isSwiping = true and it is not a swipe card then remove and add to opposite player pts deck
 
-        if(isSwiping && !imageHand2.cards.get(0).toString().contains("Black blackSwipe") || !imageHand2.cards.get(0).toString().contains("Silver silverSwipe") || !imageHand2.cards.get(0).toString().contains("Gold goldSwipe") ) {
+        if(isSwiping && imageHand2.cards.get(0).getrank() < activeTurnHand.cards.get(0).getrank()
+
+                && !imageHand2.cards.get(0).toString().contains("Black blackSwipe")
+                && !imageHand2.cards.get(0).toString().contains("Silver silverSwipe")
+                && !imageHand2.cards.get(0).toString().contains("Gold goldSwipe")) {
+
             p1PtsHand.cards.add(imageHand2.cards.get(0));
             imageHand2.cards.remove(0);
+
             System.out.println("I just swiped your " + imageTestDeck[4].showHand() + "Mother Effer"+ "\n");
         } else
             imageHand2.cards.remove(0);
@@ -234,6 +359,7 @@ public class SwipeGameController implements Initializable {
 
             p2Img1.setImage(null);
 
+
     }
 
     @FXML
@@ -241,7 +367,12 @@ public class SwipeGameController implements Initializable {
 
         // Condition if isSwiping = true - remove and add to opposite player pts deck
 
-        if(isSwiping) {
+        if((isSwiping && imageHand2.cards.get(1).getrank() < activeTurnHand.cards.get(0).getrank()
+
+                && !imageHand2.cards.get(1).toString().contains("Black blackSwipe")
+                && !imageHand2.cards.get(1).toString().contains("Silver silverSwipe")
+                && !imageHand2.cards.get(1).toString().contains("Gold goldSwipe"))) {
+
             p1PtsHand.cards.add(imageHand2.cards.get(1));
             imageHand2.cards.remove(1);
             System.out.println("I just swiped your " + imageTestDeck[4].showHand() + "Mother Effer"+ "\n");
@@ -260,7 +391,12 @@ public class SwipeGameController implements Initializable {
 
         // Condition if isSwiping = true - remove and add to opposite player pts deck
 
-        if(isSwiping) {
+        if((isSwiping && imageHand2.cards.get(2).getrank() < activeTurnHand.cards.get(0).getrank()
+
+                && !imageHand2.cards.get(2).toString().contains("Black blackSwipe")
+                && !imageHand2.cards.get(2).toString().contains("Silver silverSwipe")
+                && !imageHand2.cards.get(2).toString().contains("Gold goldSwipe"))) {
+
             p1PtsHand.cards.add(imageHand2.cards.get(2));
             imageHand2.cards.remove(2);
             System.out.println("I just swiped your " + imageTestDeck[4].showHand() + "Mother Effer"+ "\n");
@@ -279,7 +415,12 @@ public class SwipeGameController implements Initializable {
 
         // Condition if isSwiping = true - remove and add to opposite player pts deck
 
-        if(isSwiping) {
+        if((isSwiping && imageHand2.cards.get(3).getrank() < activeTurnHand.cards.get(0).getrank()
+
+                && !imageHand2.cards.get(3).toString().contains("Black blackSwipe")
+                && !imageHand2.cards.get(3).toString().contains("Silver silverSwipe")
+                && !imageHand2.cards.get(3).toString().contains("Gold goldSwipe"))) {
+
             p1PtsHand.cards.add(imageHand2.cards.get(3));
             imageHand2.cards.remove(3);
             System.out.println("I just swiped your " + imageTestDeck[4].showHand() + "Mother Effer"+ "\n");
@@ -297,7 +438,12 @@ public class SwipeGameController implements Initializable {
 
         // Condition if isSwiping = true - remove and add to opposite player pts deck
 
-        if(isSwiping) {
+        if((isSwiping && imageHand2.cards.get(4).getrank() < activeTurnHand.cards.get(0).getrank()
+
+                && !imageHand2.cards.get(4).toString().contains("Black blackSwipe")
+                && !imageHand2.cards.get(4).toString().contains("Silver silverSwipe")
+                && !imageHand2.cards.get(4).toString().contains("Gold goldSwipe"))) {
+
             p1PtsHand.cards.add(imageHand2.cards.get(4));
             imageHand2.cards.remove(4);
             System.out.println("I just swiped your " + imageTestDeck[4].showHand() + "Mother Effer"+ "\n");
@@ -311,6 +457,9 @@ public class SwipeGameController implements Initializable {
             p2Img5.setImage(null);
 
     }
+
+// Functionality to swipe player 2's cards if active card is higher rank
+    //Add Dice functionality next
 
 
 }
