@@ -34,13 +34,6 @@ public class SwipeGameController implements Initializable {
     public ImageView activeCard;
     public Button diceRoll;
 
-    @FXML
-    private Button changeMaster;
-    @FXML
-    private Button getDealCardButton2;
-    @FXML
-    private Button drawCard;
-
     Image backOfCardImage = new Image(getClass().getResourceAsStream("/com/example/swipegame/images/backOfCard.jpeg"));
     Image poweredCardTestImage = new Image(getClass().getResourceAsStream("/com/example/swipegame/images/poweredCardTest.png"));
 

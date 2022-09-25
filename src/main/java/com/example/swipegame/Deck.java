@@ -1,13 +1,9 @@
 package com.example.swipegame;
 
-import javafx.scene.image.Image;
-
 import java.util.Random;
 
 public class Deck extends Hand {
     Random rand = new Random();
-    private Image backImage;
-
 
     public void populate() {
 
@@ -27,8 +23,8 @@ public class Deck extends Hand {
                     }
 
                 }
-
         }
+
         for (Suit suit : Suit.values()) {
             if (suit.equals(Suit.BLACKS)) {
                 for (Rank rank : Rank.values()) {
@@ -40,6 +36,7 @@ public class Deck extends Hand {
 
             }
         }
+
         for (Suit suit : Suit.values()) {
             if (suit.equals(Suit.GOLDS)) {
                 for (Rank rank : Rank.values()) {
@@ -52,7 +49,6 @@ public class Deck extends Hand {
                 }
             }
         }
-
 
         for (Suit suit : Suit.values()) {
             if (suit.equals(Suit.SILVERS)) {
@@ -67,8 +63,6 @@ public class Deck extends Hand {
             }
         }
 
-
-
     }
     public void shuffle(){
 
@@ -79,9 +73,7 @@ public class Deck extends Hand {
             Card lastCard = cards.get(i);
             cards.set(i, randCard);
             cards.set(pick, lastCard);
-
         }
-
     }
 
     public void drawCardPlayer1(Hand[] hands){
@@ -96,17 +88,6 @@ public class Deck extends Hand {
     public void drawMasterCard(Hand[] hands){
         this.swipe(cards.get(0), hands[2]);
     }
-
-
-
-    public Card dealCardImage(Hand[] hands, int numCards) {
-        return cards.get(0);
-
-    }
-
-
-
-
 
 }
 
