@@ -84,7 +84,6 @@ public class Deck extends Hand {
         this.swipe(cards.get(0), hands[1]);
     }
 
-
     public void drawMasterCard(Hand[] hands){
         this.swipe(cards.get(0), hands[2]);
     }

@@ -23,6 +23,7 @@ public class Card {
         Image cardImage = new Image(getClass().getResourceAsStream("/com/example/swipegame/images/" + rankName + " " + suitName + fileType));
 
 
+
         return cardImage;
     }
 
