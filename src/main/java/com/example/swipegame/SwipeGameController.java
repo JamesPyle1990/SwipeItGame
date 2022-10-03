@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
 import java.util.Iterator;
@@ -38,7 +39,7 @@ public class SwipeGameController implements Initializable {
     public ImageView die2;
     public Button clearActiveCards;
 
-    Image backOfCardImage = new Image(getClass().getResourceAsStream("/com/example/swipegame/images/backOfCard.jpeg"));
+    Image backOfCardImage = new Image(getClass().getResourceAsStream("/com/example/swipegame/images/backOfCard.jpg"));
     Image poweredCardTestImage = new Image(getClass().getResourceAsStream("/com/example/swipegame/images/poweredCardTest.png"));
 
 
@@ -55,7 +56,10 @@ public class SwipeGameController implements Initializable {
     private boolean isPoweringUp = false;
     private boolean isMyTurn = true;
     private boolean isSwiping = false;
+    private boolean rolledTwice = true;
     int goldRank = 0;
+    int diceRollState = 3;
+    private boolean oneRollWin = false;
 
 
 
@@ -80,9 +84,12 @@ public class SwipeGameController implements Initializable {
        } else {
            System.out.println("Player 1 Turn");
        }
+        diceRollState = 3;
+        goldRank = 0;
         return isMyTurn = true;
     }
-    
+
+
     @FXML public boolean isSwiping() {
         System.out.println("Swipe It Baby!");
         return isSwiping = true;
@@ -100,8 +107,8 @@ public class SwipeGameController implements Initializable {
     @FXML  public int diceRoll() {
         int blackDie = (int) (Math.random() * 6) + 1;
         int whiteDie = (int) (Math.random() * 6) + 1;
-        int winner = 0;
         for (int i = 0; i < 1; i++) {
+
             System.out.println("Black Die is : " + blackDie);
             Image dieImage1 = new Image(getClass().getResourceAsStream("/com/example/swipegame/images/" + "Die" + blackDie + ".jpg"));
             die1.setImage(dieImage1);
@@ -110,21 +117,42 @@ public class SwipeGameController implements Initializable {
             die2.setImage(dieImage2);
 
 
-            if (blackDie > whiteDie) {
-                winner = blackDie;
-                System.out.println("Black Die WIN");
-            }
             if (blackDie < whiteDie) {
-                winner = whiteDie;
 
-                System.out.println("White Die WIN");
+                if(oneRollWin) {
+                    diceRollState = 0;
+                    System.out.println("White Die WIN" + "\n");
+                    oneRollWin = false;
+                } else {
+                    System.out.println("Roll again" + "\n");
+                    oneRollWin = true;
+                    diceRollState = 3;
+                }
+
             }
-            if (blackDie == whiteDie) {
-                winner = 0;
-                System.out.println("TIE!");
+
+           else if (blackDie > whiteDie) {
+                System.out.println("Black Die WIN"+ "\n");
+                diceRollState = 1;
+                oneRollWin = false;
+            }
+
+           else if (blackDie == whiteDie) {
+               if(oneRollWin) {
+                   System.out.println("TIE! " + diceRollState + "\n");
+                   diceRollState = 3;
+               } else {
+                   System.out.println("TIE!" + "\n");
+                   diceRollState = 2;
+                   oneRollWin = false;
+               }
+
             }
         }
-        return winner;
+        System.out.println("The state is " + diceRollState + " " + oneRollWin + "\n");
+            return diceRollState;
+
+
     }
 
 
@@ -176,6 +204,8 @@ public class SwipeGameController implements Initializable {
     @FXML
     public void swipeP1Img1() {
 
+        // Swipe Method for other player's turn
+
         if(isSwiping && !isMyTurn && imageHand1.cards.get(0).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank
 
                 && !imageHand1.cards.get(0).toString().contains("Black blackSwipe")
@@ -186,6 +216,46 @@ public class SwipeGameController implements Initializable {
             imageHand1.cards.remove(0);
             p1Img1.setImage(null);
             System.out.println("I just swiped your " + p2PtsHand.showHand() + "Mother Effer"+ "\n" + imageHand1.showHand());
+        }
+
+        else if (isSwiping && !isMyTurn && imageHand1.cards.get(0).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand1.cards.get(0));
+                imageHand1.cards.remove(0);
+                p1Img1.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p2PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+        }
+
+        else if (isSwiping && !isMyTurn && imageHand1.cards.get(0).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            oneRollWin = true;
+            if (diceRollState == 0) {
+
+                p2PtsHand.cards.add(imageHand1.cards.get(0));
+                imageHand1.cards.remove(0);
+                p1Img1.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+
         }
 
 
@@ -204,6 +274,8 @@ public class SwipeGameController implements Initializable {
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             goldRank = 2;
         }
+
+        //Method for adding power card to Active Card Hand
 
         else if (isPoweringUp && isMyTurn) {
             activePowerCardHand.cards.add(imageHand1.cards.get(0));
@@ -232,6 +304,46 @@ public class SwipeGameController implements Initializable {
             imageHand1.cards.remove(1);
             p1Img2.setImage(null);
             System.out.println("I just swiped your " + p2PtsHand.showHand() + "Mother Effer"+ "\n" + imageHand1.showHand());
+        }
+
+        else if (isSwiping && !isMyTurn && imageHand1.cards.get(1).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand1.cards.get(1));
+                imageHand1.cards.remove(1);
+                p1Img2.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p2PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+        }
+
+        else if (isSwiping && !isMyTurn && imageHand1.cards.get(1).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            oneRollWin = true;
+            if (diceRollState == 0) {
+
+                p2PtsHand.cards.add(imageHand1.cards.get(1));
+                imageHand1.cards.remove(1);
+                p1Img2.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+
         }
 
 
@@ -282,6 +394,45 @@ public class SwipeGameController implements Initializable {
             System.out.println("I just swiped your " + p2PtsHand.showHand() + "Mother Effer"+ "\n" + imageHand1.showHand());
         }
 
+        else if (isSwiping && !isMyTurn && imageHand1.cards.get(2).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand1.cards.get(2));
+                imageHand1.cards.remove(2);
+                p1Img3.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p2PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+        }
+
+        else if (isSwiping && !isMyTurn && imageHand1.cards.get(2).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            oneRollWin = true;
+            if (diceRollState == 0) {
+
+                p2PtsHand.cards.add(imageHand1.cards.get(2));
+                imageHand1.cards.remove(2);
+                p1Img3.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+
+        }
 
         else if(imageHand1.cards.get(2).toString().contains("Black blackSwipe")&& isPoweringUp && isMyTurn && activePowerCardHand != null) {
             activeSwipeCardHand.cards.add(imageHand1.cards.get(2));
@@ -330,6 +481,46 @@ public class SwipeGameController implements Initializable {
             imageHand1.cards.remove(3);
             p1Img4.setImage(null);
             System.out.println("I just swiped your " + p2PtsHand.showHand() + "Mother Effer"+ "\n" + imageHand1.showHand());
+        }
+
+        else if (isSwiping && !isMyTurn && imageHand1.cards.get(3).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand1.cards.get(3));
+                imageHand1.cards.remove(3);
+                p1Img4.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p2PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+        }
+
+        else if (isSwiping && !isMyTurn && imageHand1.cards.get(3).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            oneRollWin = true;
+            if (diceRollState == 0) {
+
+                p2PtsHand.cards.add(imageHand1.cards.get(3));
+                imageHand1.cards.remove(3);
+                p1Img4.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+
         }
 
 
@@ -382,6 +573,45 @@ public class SwipeGameController implements Initializable {
             System.out.println("I just swiped your " + p2PtsHand.showHand() + "Mother Effer"+ "\n" + imageHand1.showHand());
         }
 
+        else if (isSwiping && !isMyTurn && imageHand1.cards.get(4).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand1.cards.get(4));
+                imageHand1.cards.remove(4);
+                p1Img5.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p2PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+        }
+
+        else if (isSwiping && !isMyTurn && imageHand1.cards.get(4).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            oneRollWin = true;
+            if (diceRollState == 0) {
+
+                p2PtsHand.cards.add(imageHand1.cards.get(4));
+                imageHand1.cards.remove(4);
+                p1Img5.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+
+        }
 
         else if (imageHand1.cards.get(4).toString().contains("Black blackSwipe") && isPoweringUp && isMyTurn && activePowerCardHand != null) {
             activeSwipeCardHand.cards.add(imageHand1.cards.get(4));
@@ -413,6 +643,7 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void swipeP2Img1() {
+        // Has Dice Roll Functionality for ties and one or more over
 
         // Condition if isSwiping = true and it is not a swipe card then remove and add to opposite player pts deck
 
@@ -426,6 +657,49 @@ public class SwipeGameController implements Initializable {
             imageHand2.cards.remove(0);
             p2Img1.setImage(null);
             System.out.println("I just swiped your " + p1PtsHand.showHand() + "Mother Effer"+ "\n");
+
+        }
+        //Dice Roll if one or more over
+
+        else if (isSwiping && isMyTurn && imageHand2.cards.get(0).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand2.cards.get(0));
+                imageHand2.cards.remove(0);
+                p2Img1.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+        }
+
+        //Dice Roll if tied
+
+        else if (isSwiping && isMyTurn && imageHand2.cards.get(0).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+                 oneRollWin = true;
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand2.cards.get(0));
+                imageHand2.cards.remove(0);
+                p2Img1.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
 
         }
 
@@ -462,10 +736,10 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void swipeP2Img2() {
-
+        //Has Dice Roll Functionality for ties and one or more over
         // Condition if isSwiping = true - remove and add to opposite player pts deck
 
-        if (isSwiping && isMyTurn && imageHand2.cards.get(0).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank
+        if (isSwiping && isMyTurn && imageHand2.cards.get(1).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank
 
                 && !imageHand2.cards.get(1).toString().contains("Black blackSwipe")
                 && !imageHand2.cards.get(1).toString().contains("Silver silverSwipe")
@@ -476,7 +750,49 @@ public class SwipeGameController implements Initializable {
             p2Img2.setImage(null);
             System.out.println("I just swiped your " + p1PtsHand.showHand() + "Mother Effer" + "\n");
 
-        } else if (imageHand2.cards.get(1).toString().contains("Black blackSwipe") && isPoweringUp && !isMyTurn && activePowerCardHand != null) {
+        }
+        //Dice Roll
+        else if (isSwiping && isMyTurn && imageHand2.cards.get(1).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand2.cards.get(1));
+                imageHand2.cards.remove(1);
+                p2Img2.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+        }
+
+        else if (isSwiping && isMyTurn && imageHand2.cards.get(1).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            oneRollWin = true;
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand2.cards.get(1));
+                imageHand2.cards.remove(1);
+                p2Img2.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+
+        }
+
+        else if (imageHand2.cards.get(1).toString().contains("Black blackSwipe") && isPoweringUp && !isMyTurn && activePowerCardHand != null) {
             activeSwipeCardHand.cards.add(imageHand2.cards.get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
 
@@ -506,6 +822,7 @@ public class SwipeGameController implements Initializable {
     @FXML
     public void swipeP2Img3() {
 
+        // Has Dice Roll Functionality for ties and one or more over
         // Condition if isSwiping = true - remove and add to opposite player pts deck
 
         if(isSwiping && isMyTurn && imageHand2.cards.get(2).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank
@@ -519,7 +836,49 @@ public class SwipeGameController implements Initializable {
             p2Img3.setImage(null);
             System.out.println("I just swiped your " + p1PtsHand.showHand() + "Mother Effer"+ "\n");
 
-        } else if (imageHand2.cards.get(2).toString().contains("Black blackSwipe") && isPoweringUp && !isMyTurn && activePowerCardHand != null) {
+        }
+            else if (isSwiping && isMyTurn && imageHand2.cards.get(2).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+                if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand2.cards.get(2));
+                imageHand2.cards.remove(2);
+                p2Img3.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+        }
+
+        else if (isSwiping && isMyTurn && imageHand2.cards.get(2).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            oneRollWin = true;
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand2.cards.get(2));
+                imageHand2.cards.remove(2);
+                p2Img3.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+
+        }
+
+
+        else if (imageHand2.cards.get(2).toString().contains("Black blackSwipe") && isPoweringUp && !isMyTurn && activePowerCardHand != null) {
             activeSwipeCardHand.cards.add(imageHand2.cards.get(2));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
 
@@ -547,7 +906,7 @@ public class SwipeGameController implements Initializable {
     }
     @FXML
     public void swipeP2Img4() {
-
+        // Has Dice Roll Functionality for ties and one or more over
         // Condition if isSwiping = true - remove and add to opposite player pts deck
 
         if(isSwiping && isMyTurn && imageHand2.cards.get(3).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank
@@ -561,7 +920,49 @@ public class SwipeGameController implements Initializable {
             p2Img4.setImage(null);
             System.out.println("I just swiped your " + p1PtsHand.showHand() + "Mother Effer"+ "\n");
 
-        }  else if (imageHand2.cards.get(3).toString().contains("Black blackSwipe") && isPoweringUp && !isMyTurn && activePowerCardHand != null) {
+        }
+
+        else if (isSwiping && isMyTurn && imageHand2.cards.get(3).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand2.cards.get(3));
+                imageHand2.cards.remove(3);
+                p2Img4.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+        }
+
+        else if (isSwiping && isMyTurn && imageHand2.cards.get(3).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            oneRollWin = true;
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand2.cards.get(3));
+                imageHand2.cards.remove(3);
+                p2Img4.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+
+        }
+
+        else if (imageHand2.cards.get(3).toString().contains("Black blackSwipe") && isPoweringUp && !isMyTurn && activePowerCardHand != null) {
             activeSwipeCardHand.cards.add(imageHand2.cards.get(3));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
 
@@ -589,7 +990,7 @@ public class SwipeGameController implements Initializable {
     }
     @FXML
     public void swipeP2Img5() {
-
+        // Has Dice Roll Functionality for ties and one or more over
         // Condition if isSwiping = true - remove and add to opposite player pts deck
 
         if(isSwiping && isMyTurn && imageHand2.cards.get(4).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank
@@ -603,7 +1004,49 @@ public class SwipeGameController implements Initializable {
             p2Img5.setImage(null);
             System.out.println("I just swiped your " + p1PtsHand.showHand() + "Mother Effer"+ "\n");
 
-        }  else if (imageHand2.cards.get(4).toString().contains("Black blackSwipe") && isPoweringUp && !isMyTurn && activePowerCardHand != null) {
+        }
+
+        else if (isSwiping && isMyTurn && imageHand2.cards.get(4).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand2.cards.get(4));
+                imageHand2.cards.remove(4);
+                p2Img5.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+        }
+
+        else if (isSwiping && isMyTurn && imageHand2.cards.get(4).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+            oneRollWin = true;
+            if (diceRollState == 0) {
+
+                p1PtsHand.cards.add(imageHand2.cards.get(4));
+                imageHand2.cards.remove(4);
+                p2Img5.setImage(null);
+                System.out.println("I win the dice roll and I just swiped your " + p1PtsHand.showHand() + "Mother Effer " + "\n");
+            }
+
+            else if (diceRollState ==1 ){
+                System.out.println("You Loooossseeee"  + "\n");
+            }
+            else if (diceRollState == 2) {
+                System.out.println("Roll again! We Tied"  + "\n");
+            }
+
+            else System.out.println("Roll the dice big hog"  + "\n");
+
+        }
+
+        else if (imageHand2.cards.get(4).toString().contains("Black blackSwipe") && isPoweringUp && !isMyTurn && activePowerCardHand != null) {
             activeSwipeCardHand.cards.add(imageHand2.cards.get(4));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
 
@@ -632,11 +1075,8 @@ public class SwipeGameController implements Initializable {
 
 
     //Remember to clear gold rank
-    //Add Swipe Functionality to Player 2
-    //Clear active cards when not in use
-    // Pop up messages (can't swipe that, have to roll once or twice, pass turn, draw card)
+    //Pop up messages (can't swipe that, have to roll once or twice, pass turn, draw card)
     //Make Card Image Total 10 for each player
-    //Add Functionality for dice roll win and lose
     //Limit on drawing a card
     //Add 2 black swipes together draw another card
     //What to do if you have more than 10 cards
@@ -644,6 +1084,8 @@ public class SwipeGameController implements Initializable {
     //Lock in the master card (can't change it once decided)
     //Silver Card Functionality
     //Swipe Card Images for each power and swipe card
+
+    //Don't remove card until turn is passed
 
     //Error when trying to swipe multiple cards. If a card at index 0 is taken and then
     // you try to take index 1 it will error because the card has moved to index 0

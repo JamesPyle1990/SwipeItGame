@@ -17,7 +17,7 @@ public class Card {
 
     public Image getImage(Card card)
     {
-        String fileType = ".jpeg";
+        String fileType = ".jpg";
         String rankName = card.rank.printRank();
         String suitName = card.suit.printSuit();
         Image cardImage = new Image(getClass().getResourceAsStream("/com/example/swipegame/images/" + rankName + " " + suitName + fileType));
@@ -38,7 +38,7 @@ public class Card {
             this.rank = rank;
 
 
-            String fileName = ".jpeg";
+            String fileName = ".jpg";
            // image = new Image("./images/" + fileName);
         }
 
