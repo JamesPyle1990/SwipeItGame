@@ -80,12 +80,20 @@ public class Deck extends Hand {
         this.swipe(cards.get(0), hands[0]);
         }
 
+    public void drawCardPlayer1Test(Hand[] hands){
+        this.swipe(cards.get(41), hands[0]);
+    }
+
     public void drawCardPlayer2(Hand[] hands){
         this.swipe(cards.get(0), hands[1]);
     }
 
     public void drawMasterCard(Hand[] hands){
         this.swipe(cards.get(0), hands[2]);
+    }
+
+    public void drawActiveCard(Hand[] hands){
+        this.swipe(cards.get(0), hands[3]);
     }
 
 }

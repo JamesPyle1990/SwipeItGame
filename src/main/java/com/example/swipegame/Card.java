@@ -1,9 +1,6 @@
 package com.example.swipegame;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import java.util.Objects;
 
 public class Card {
 
@@ -27,6 +24,18 @@ public class Card {
         return cardImage;
     }
 
+    public Image getMergedImage(Card powerCard, Card swipeCard)
+    {
+        String fileType = ".jpg";
+        String powerRank = powerCard.rank.printRank();
+        String powerSuit = powerCard.suit.printSuit();
+        String swipeSuit = swipeCard.suit.printSuit();
+        Image cardImage = new Image(getClass().getResourceAsStream("/com/example/swipegame/images/" + powerRank + " " + powerSuit + " " + swipeSuit + fileType));
+
+        return cardImage;
+    }
+
+
     public String getCardString(Card card){
         String cardName = card.suit.printSuit();
         return cardName;
@@ -41,6 +50,7 @@ public class Card {
             String fileName = ".jpg";
            // image = new Image("./images/" + fileName);
         }
+
 
 
         public String getSuit() {
