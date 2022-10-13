@@ -6,24 +6,23 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.swipegame.SwipeGameController">
    <children>
-      <ImageView fx:id="MasterCard" fitHeight="250.0" fitWidth="175.0" layoutX="14.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" />
-      <HBox layoutX="239.0" layoutY="200.0" prefHeight="144.0" prefWidth="947.0">
+      <ImageView fx:id="MasterCard" fitHeight="144.0" fitWidth="99.0" layoutX="25.0" layoutY="200.0" onMouseClicked="#dealMaster" pickOnBounds="true" preserveRatio="true" />
+      <HBox layoutX="320.0" layoutY="200.0" prefHeight="144.0" prefWidth="947.0">
          <children>
             <ImageView fx:id="p2Img1" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP2Img1" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="p2Img2" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP2Img2" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="p2Img3" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP2Img3" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="p2Img4" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP2Img4" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="p2Img5" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP2Img5" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2Img6" fitHeight="144.0" fitWidth="88.0" layoutX="362.0" layoutY="10.0" onMouseClicked="#swipeP2Img5" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2Img7" fitHeight="144.0" fitWidth="88.0" layoutX="450.0" layoutY="10.0" onMouseClicked="#swipeP2Img5" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2Img8" fitHeight="144.0" fitWidth="88.0" layoutX="538.0" layoutY="10.0" onMouseClicked="#swipeP2Img5" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2Img9" fitHeight="144.0" fitWidth="88.0" layoutX="626.0" layoutY="10.0" onMouseClicked="#swipeP2Img5" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2Img10" fitHeight="144.0" fitWidth="88.0" layoutX="714.0" layoutY="10.0" onMouseClicked="#swipeP2Img5" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2Img6" fitHeight="144.0" fitWidth="88.0" layoutX="362.0" layoutY="10.0" onMouseClicked="#swipeP2Img6" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2Img7" fitHeight="144.0" fitWidth="88.0" layoutX="450.0" layoutY="10.0" onMouseClicked="#swipeP2Img7" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2Img8" fitHeight="144.0" fitWidth="88.0" layoutX="538.0" layoutY="10.0" onMouseClicked="#swipeP2Img8" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2Img9" fitHeight="144.0" fitWidth="88.0" layoutX="626.0" layoutY="10.0" onMouseClicked="#swipeP2Img9" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2Img10" fitHeight="144.0" fitWidth="88.0" layoutX="714.0" layoutY="10.0" onMouseClicked="#swipeP2Img10" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
-      <ImageView fx:id="PtsDeck" fitHeight="154.0" fitWidth="77.0" layoutX="27.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="dealMaster" layoutX="46.0" layoutY="50.0" mnemonicParsing="false" onAction="#dealMaster" text="Deal Master Card" />
-      <HBox layoutX="239.0" layoutY="425.0" prefHeight="144.0" prefWidth="947.0">
+      <ImageView fx:id="P1PtsDeck" fitHeight="154.0" fitWidth="77.0" layoutX="10.0" layoutY="600.0" onMouseClicked="#getPlayer1Score" pickOnBounds="true" preserveRatio="true" />
+      <HBox layoutX="320.0" layoutY="425.0" prefHeight="144.0" prefWidth="947.0">
          <children>
             <ImageView fx:id="p1Img1" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img1" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="p1Img2" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img2" pickOnBounds="true" preserveRatio="true" />
@@ -32,52 +31,53 @@
             <ImageView fx:id="p1Img5" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img5" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="p1Img6" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img6" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="p1Img7" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img7" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1Img8" fitHeight="144.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1Img9" fitHeight="144.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1Img10" fitHeight="144.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1Img8" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img8" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1Img9" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img9" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1Img10" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#swipeP1Img10" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
-      <Button fx:id="drawCard1" layoutX="43.0" layoutY="750.0" mnemonicParsing="false" onAction="#drawCard1" text="Draw P1" />
-      <Button fx:id="drawCard2" layoutX="136.0" layoutY="750.0" mnemonicParsing="false" onAction="#drawCard2" text="Draw P2" />
-      <Button fx:id="powerButton" layoutX="221.0" layoutY="750.0" mnemonicParsing="false" onAction="#isPoweringUp" text="Power Up" />
-      <Button fx:id="passTurn" layoutX="314.0" layoutY="750.0" mnemonicParsing="false" onAction="#isMyTurn" text="Pass Turn" />
-      <Button fx:id="swipeButton" layoutX="403.0" layoutY="750.0" mnemonicParsing="false" onAction="#isSwiping" text="Swipe" />
-      <ImageView fx:id="activePowerCard" fitHeight="154.0" fitWidth="48.0" layoutX="111.0" layoutY="497.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="107.0" layoutY="467.0" text="Active Cards" />
-      <Button fx:id="diceRoll" layoutX="472.0" layoutY="750.0" mnemonicParsing="false" onAction="#diceRoll" text="Roll Dice " />
-      <ImageView fx:id="activeSwipeCard" fitHeight="150.0" fitWidth="48.0" layoutX="163.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="passTurn" layoutX="900.0" layoutY="750.0" mnemonicParsing="false" onAction="#isMyTurn" text="Pass Turn" />
+      <Button fx:id="swipeButton" layoutX="200.0" layoutY="500.0" mnemonicParsing="false" onAction="#isSwiping" text="Swipe" />
+      <ImageView fx:id="activePowerCard" fitHeight="165.0" fitWidth="70.0" layoutX="150.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="diceRoll" layoutX="205.0" layoutY="535.0" mnemonicParsing="false" onAction="#diceRoll" text="Roll " />
+      <ImageView fx:id="activeSwipeCard" fitHeight="165.0" fitWidth="70.0" layoutX="225.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="die1" fitHeight="49.0" fitWidth="48.0" layoutX="563.0" layoutY="650.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="die2" fitHeight="49.0" fitWidth="48.0" layoutX="622.0" layoutY="650.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="clearActiveCards" layoutX="697.0" layoutY="750.0" mnemonicParsing="false" onAction="#clearActiveCards" text="Clear Active Cards" />
-      <HBox layoutX="253.0" layoutY="565.0" prefHeight="144.0" prefWidth="947.0">
+      <Button fx:id="clearActiveCards" layoutX="200.0" layoutY="460.0" mnemonicParsing="false" onAction="#clearActiveCards" text="Clear" />
+      <HBox layoutX="320.0" layoutY="575.0" prefHeight="144.0" prefWidth="947.0">
          <children>
             <ImageView fx:id="p1ActiveImg1" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#p1A1" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1ActiveImg2" fitHeight="144.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1ActiveImg3" fitHeight="144.0" fitWidth="88.0" layoutX="98.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1ActiveImg4" fitHeight="144.0" fitWidth="88.0" layoutX="186.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1ActiveImg5" fitHeight="144.0" fitWidth="88.0" layoutX="274.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1ActiveImg6" fitHeight="144.0" fitWidth="88.0" layoutX="362.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1ActiveImg7" fitHeight="144.0" fitWidth="88.0" layoutX="450.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1ActiveImg8" fitHeight="144.0" fitWidth="88.0" layoutX="538.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1ActiveImg9" fitHeight="144.0" fitWidth="88.0" layoutX="626.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p1ActiveImg10" fitHeight="144.0" fitWidth="88.0" layoutX="714.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1ActiveImg2" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#p1A2" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1ActiveImg3" fitHeight="144.0" fitWidth="88.0" layoutX="98.0" layoutY="10.0" onMouseClicked="#p1A3" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1ActiveImg4" fitHeight="144.0" fitWidth="88.0" layoutX="186.0" layoutY="10.0" onMouseClicked="#p1A4" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1ActiveImg5" fitHeight="144.0" fitWidth="88.0" layoutX="274.0" layoutY="10.0" onMouseClicked="#p1A5" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1ActiveImg6" fitHeight="144.0" fitWidth="88.0" layoutX="362.0" layoutY="10.0" onMouseClicked="#p1A6" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1ActiveImg7" fitHeight="144.0" fitWidth="88.0" layoutX="450.0" layoutY="10.0" onMouseClicked="#p1A7" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1ActiveImg8" fitHeight="144.0" fitWidth="88.0" layoutX="538.0" layoutY="10.0" onMouseClicked="#p1A8" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1ActiveImg9" fitHeight="144.0" fitWidth="88.0" layoutX="626.0" layoutY="10.0" onMouseClicked="#p1A9" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p1ActiveImg10" fitHeight="144.0" fitWidth="88.0" layoutX="714.0" layoutY="10.0" onMouseClicked="#p1A10" pickOnBounds="true" preserveRatio="true" />
          </children></HBox>
-      <HBox layoutX="233.0" layoutY="63.0" prefHeight="144.0" prefWidth="947.0">
+      <HBox layoutX="320.0" layoutY="50.0" prefHeight="144.0" prefWidth="947.0">
          <children>
-            <ImageView fx:id="p2ActiveImg1" fitHeight="144.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2ActiveImg2" fitHeight="144.0" fitWidth="88.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2ActiveImg3" fitHeight="144.0" fitWidth="88.0" layoutX="98.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2ActiveImg4" fitHeight="144.0" fitWidth="88.0" layoutX="186.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2ActiveImg5" fitHeight="144.0" fitWidth="88.0" layoutX="274.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2ActiveImg6" fitHeight="144.0" fitWidth="88.0" layoutX="362.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2ActiveImg7" fitHeight="144.0" fitWidth="88.0" layoutX="450.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2ActiveImg8" fitHeight="144.0" fitWidth="88.0" layoutX="538.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2ActiveImg9" fitHeight="144.0" fitWidth="88.0" layoutX="626.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="p2ActiveImg10" fitHeight="144.0" fitWidth="88.0" layoutX="714.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2ActiveImg1" fitHeight="144.0" fitWidth="88.0" onMouseClicked="#p2A1" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2ActiveImg2" fitHeight="144.0" fitWidth="88.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#p2A2" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2ActiveImg3" fitHeight="144.0" fitWidth="88.0" layoutX="98.0" layoutY="10.0" onMouseClicked="#p2A3" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2ActiveImg4" fitHeight="144.0" fitWidth="88.0" layoutX="186.0" layoutY="10.0" onMouseClicked="#p2A4" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2ActiveImg5" fitHeight="144.0" fitWidth="88.0" layoutX="274.0" layoutY="10.0" onMouseClicked="#p2A5" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2ActiveImg6" fitHeight="144.0" fitWidth="88.0" layoutX="362.0" layoutY="10.0" onMouseClicked="#p2A6" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2ActiveImg7" fitHeight="144.0" fitWidth="88.0" layoutX="450.0" layoutY="10.0" onMouseClicked="#p2A7" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2ActiveImg8" fitHeight="144.0" fitWidth="88.0" layoutX="538.0" layoutY="10.0" onMouseClicked="#p2A8" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2ActiveImg9" fitHeight="144.0" fitWidth="88.0" layoutX="626.0" layoutY="10.0" onMouseClicked="#p2A9" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="p2ActiveImg10" fitHeight="144.0" fitWidth="88.0" layoutX="714.0" layoutY="10.0" onMouseClicked="#p2A10" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
-      <Button fx:id="resetActiveCards" layoutX="838.0" layoutY="750.0" mnemonicParsing="false" onAction="#resetActivatedCards" text="Reset Active Cards" />
-      <Button fx:id="setActiveImages" layoutX="986.0" layoutY="750.0" mnemonicParsing="false" onAction="#setActiveImages" text="Set Active Images" />
+      <Button fx:id="resetActiveImagesP2" layoutX="990.0" layoutY="750.0" mnemonicParsing="false" onAction="#resetActiveImagesP2" text="resetActiveImagesP2" />
       <Button fx:id="undoSetCards" layoutX="1128.0" layoutY="750.0" mnemonicParsing="false" onAction="#undoSetCards" text="Undo Set Cards" />
+      <Button fx:id="deckCount" layoutX="800.0" layoutY="750.0" mnemonicParsing="false" onAction="#deckCount" text="Deck Count" />
+      <ImageView fx:id="P2PtsDeck" fitHeight="144.0" fitWidth="77.0" layoutX="10.0" layoutY="25.0" onMouseClicked="#getPlayer2Score" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="drawCard" fitHeight="144.0" fitWidth="99.0" layoutX="25.0" layoutY="420.0" onMouseClicked="#drawAndPass" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="setCards" layoutX="190.0" layoutY="425.0" mnemonicParsing="false" onAction="#setCards" text="Set Cards" />
+      <Button fx:id="isComparing" layoutX="195.0" layoutY="569.0" mnemonicParsing="false" onAction="#isComparing" text="Trade in" />
+      <Button fx:id="resetActivatedCards" layoutX="704.0" layoutY="750.0" mnemonicParsing="false" onAction="#resetActiveCards" text="Reset" />
    </children>
 </AnchorPane>

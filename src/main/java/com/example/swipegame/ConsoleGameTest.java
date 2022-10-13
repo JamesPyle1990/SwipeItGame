@@ -62,8 +62,8 @@ public class ConsoleGameTest {
                         System.out.println("Player 1's Hand is now : \n" + hands[0].showHand() + "\n" +
                                 "Player 2's Hand is now: \n" + hands[1].showHand());
                         System.out.println(discard.showDiscard() + "was discarded " + "\n");
-                        System.out.println(player2Pts.getShapeValue());
-                        System.out.println(player2Pts.getColorValue());
+                       // System.out.println(player2Pts.getShapeValue());
+                        //System.out.println(player2Pts.getColorValue());
 
 
                         //Show player 2's pts hand

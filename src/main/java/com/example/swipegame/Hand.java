@@ -34,6 +34,8 @@ public class Hand {
     }
 
 
+
+
     public String showDiscard() {
         String str = "";
         for (Card c : cards) {
@@ -49,22 +51,33 @@ public class Hand {
         for (int i = 0; i < cards.size(); i++) {
             totalPts += cards.get(i).getrank();
         }
+        System.out.println("Total Points Value: " + totalPts + " " + "\n");
         return totalPts;
     }
 
-    public String getShapeValue() {
+    public String getShapeValue(Card masterCard) {
         String shapeString = "";
         int xCounter = 0;
         int oCounter = 0;
+        int j = 0;
         for (int i = 0; i < cards.size(); i++) {
             shapeString += cards.get(i).getSuit();
             if (cards.get(i).getSuit().contains("x")) {
                 xCounter++;
-                System.out.println("You have : " + xCounter + " x's");
+                System.out.println("You have : " + xCounter + " x's" + "\n");
             }
             if (cards.get(i).getSuit().contains("o")) {
                 oCounter++;
-                System.out.println("You have : " + oCounter + " o's");
+                System.out.println("You have : " + oCounter + " o's" + "\n");
+            }
+
+            if(cards.get(i).getSuit().contains("x") && masterCard.getSuit().contains("x")) {
+                System.out.println("You have " + xCounter + " x cards that match the master.");
+            }
+
+
+            if(cards.get(i).getSuit().contains("o") && masterCard.getSuit().contains("o")) {
+                System.out.println("You have " + oCounter + " o cards that match the master.");
             }
 
         }
@@ -73,7 +86,7 @@ public class Hand {
         return shapeString;
     }
 
-    public String getColorValue() {
+    public String getColorValue(Card masterCard) {
         String colorString = "";
         int redCounter = 0;
         int blueCounter = 0;
@@ -84,19 +97,35 @@ public class Hand {
             colorString += cards.get(i).getSuit();
             if (cards.get(i).getSuit().contains("red")) {
                 redCounter++;
-                System.out.println("You have : " + redCounter + " reds");
+                System.out.println("You have : " + redCounter + " reds " + "\n");
             }
             if (cards.get(i).getSuit().contains("blue")) {
                 blueCounter++;
-                System.out.println("You have : " + blueCounter + " blues");
+                System.out.println("You have : " + blueCounter + " blues " + "\n");
             }
             if (cards.get(i).getSuit().contains("green")) {
                 greenCounter++;
-                System.out.println("You have : " + greenCounter + " greens");
+                System.out.println("You have : " + greenCounter + " greens " + "\n");
             }
-            if (cards.get(i).getSuit().contains("purple")) {
+            if (cards.get(i).getSuit().contains("purple" )) {
                 purpleCounter++;
-                System.out.println("You have : " + purpleCounter + " purple");
+                System.out.println("You have : " + purpleCounter + " purples " + "\n");
+            }
+
+            if(cards.get(i).getSuit().contains("red") && masterCard.getSuit().contains("red")) {
+                System.out.println("You have " + redCounter + " cards that match the master");
+            }
+
+            if(cards.get(i).getSuit().contains("blue") && masterCard.getSuit().contains("blue")) {
+                System.out.println("You have " + blueCounter + " cards that match the master");
+            }
+
+            if(cards.get(i).getSuit().contains("green") && masterCard.getSuit().contains("green")) {
+                System.out.println("You have " + greenCounter + " cards that match the master");
+            }
+
+            if(cards.get(i).getSuit().contains("purple") && masterCard.getSuit().contains("purple")) {
+                System.out.println("You have " + purpleCounter + " cards that match the master");
             }
 
         }
@@ -145,7 +174,19 @@ public class Hand {
 
         return cards.get(c);
     }
+
+    public void matchMaster(Card masterCard) {
+        int matchMasterPoints = 0;
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getrank() == masterCard.getrank()) {
+                System.out.println("Cards that match master " + matchMasterPoints + " " + "\n");
+            }
+
+        }
+    }
 }
+
+
 
 
 
