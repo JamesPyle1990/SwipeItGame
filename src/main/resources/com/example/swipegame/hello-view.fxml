@@ -75,9 +75,10 @@
       <Button fx:id="undoSetCards" layoutX="1128.0" layoutY="750.0" mnemonicParsing="false" onAction="#undoSetCards" text="Undo Set Cards" />
       <Button fx:id="deckCount" layoutX="800.0" layoutY="750.0" mnemonicParsing="false" onAction="#deckCount" text="Deck Count" />
       <ImageView fx:id="P2PtsDeck" fitHeight="144.0" fitWidth="77.0" layoutX="10.0" layoutY="25.0" onMouseClicked="#getPlayer2Score" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="drawCard" fitHeight="144.0" fitWidth="99.0" layoutX="25.0" layoutY="420.0" onMouseClicked="#drawAndPass" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="drawCard" fitHeight="144.0" fitWidth="99.0" layoutX="25.0" layoutY="420.0" onMouseClicked="#drawCard" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="setCards" layoutX="190.0" layoutY="425.0" mnemonicParsing="false" onAction="#setCards" text="Set Cards" />
       <Button fx:id="isComparing" layoutX="195.0" layoutY="569.0" mnemonicParsing="false" onAction="#isComparing" text="Trade in" />
       <Button fx:id="resetActivatedCards" layoutX="704.0" layoutY="750.0" mnemonicParsing="false" onAction="#resetActiveCards" text="Reset" />
+      <Button fx:id="endTurn" layoutX="632.0" layoutY="750.0" mnemonicParsing="false" onAction="#isEndTurnBoolean" text="End Turn" />
    </children>
 </AnchorPane>

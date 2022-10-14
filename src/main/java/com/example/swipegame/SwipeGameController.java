@@ -89,6 +89,7 @@ public class SwipeGameController implements Initializable {
     public ImageView P2PtsDeck;
     public ImageView drawCard;
     public Button resetActivatedCards;
+    public Button endTurn;
 
     ArrayList<ImageView> activeImagesArrayP2 = new ArrayList(Arrays.asList(p2ActiveImg1, p2ActiveImg2, p2ActiveImg3, p2ActiveImg4, p2ActiveImg5, p2ActiveImg6, p2ActiveImg7, p2ActiveImg8, p2ActiveImg9, p2ActiveImg10));
 
@@ -158,6 +159,7 @@ public class SwipeGameController implements Initializable {
     public boolean swipeP2;
     public boolean swipeP1A1;
     public boolean swipeP2A2;
+    public boolean endTurnBoolean = false;
 
 
 
@@ -174,6 +176,7 @@ public class SwipeGameController implements Initializable {
         P1PtsDeck.setImage(backOfCardImage);
         P2PtsDeck.setImage(backOfCardImage);
         drawCard.setImage(backOfCardImage);
+        isEndTurnBoolean();
     }
 
     @FXML public boolean isPoweringUp(){
@@ -204,6 +207,17 @@ public class SwipeGameController implements Initializable {
         return isMyTurn = true;
     }
 
+    @FXML public boolean isEndTurnBoolean() {
+        if (endTurnBoolean) {
+            System.out.println("Ended Turn - Player 2 Draw "+ "\n");
+            return endTurnBoolean = false;
+        }
+        else {
+            System.out.println("Ended Turn - Player 1 Draw "+ "\n");
+        }
+        return endTurnBoolean = true;
+    }
+
     @FXML public void setCards() {
         if (isMyTurn) {
             setActiveImagesP1();
@@ -220,6 +234,7 @@ public class SwipeGameController implements Initializable {
             System.out.println("Player 2 Turn");
             drawCard2();
             return isMyTurn = false;
+
         } else {
             System.out.println("Player 1 Turn");
             drawCard1();
@@ -231,6 +246,16 @@ public class SwipeGameController implements Initializable {
         isSwiping = false;
         isComparing = false;
         return isMyTurn = true;
+    }
+
+    @FXML public void drawCard () {
+        if(endTurnBoolean) {
+            drawAndPass();
+            endTurnBoolean = false;
+        }
+        else {
+            System.out.println("Must end Turn ");
+        }
     }
 
 
@@ -432,11 +457,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void swipeP1(int pos){
-        if (isSwiping && !isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
+        if (!isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
             goldRank = 2;
         }
 
-        if(isSwiping && !isMyTurn && imageHand1.cards.get(pos).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank
+        if(!isMyTurn && imageHand1.cards.get(pos).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank
 
                 && !imageHand1.cards.get(pos).toString().contains("Swipe")) {
 
@@ -458,14 +483,15 @@ public class SwipeGameController implements Initializable {
         goldRank = 0;
     }
 
+
     @FXML
     public void swipeP2(int pos){
 
-        if (isSwiping && isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
+        if (isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
             goldRank = 2;
         }
 
-        if(isSwiping && isMyTurn && imageHand2.cards.get(pos).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank
+        if(isMyTurn && imageHand2.cards.get(pos).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank
 
                 && !imageHand2.cards.get(pos).toString().contains("Swipe")) {
 
@@ -489,11 +515,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML public void swipeP1A1(int pos) {
 
-        if (isSwiping && !isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
+        if (!isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
             goldRank = 2;
         }
 
-        if(isSwiping && !isMyTurn && activatedCardsP1.get(pos).get(0).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank) {
+        if(isMyTurn && activatedCardsP1.get(pos).get(0).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank) {
 
             p2PtsHand.cards.add(activatedCardsP1.get(pos).get(0));
             activatedCardsP1.get(pos).remove(0);
@@ -519,11 +545,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML public void swipeP2A2(int pos) {
 
-        if (isSwiping && isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
+        if (isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
             goldRank = 2;
         }
 
-        if(isSwiping && isMyTurn && activatedCardsP2.get(pos).get(0).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank) {
+        if(isMyTurn && activatedCardsP2.get(pos).get(0).getrank() < activePowerCardHand.cards.get(0).getrank() + goldRank) {
 
             p1PtsHand.cards.add(activatedCardsP2.get(pos).get(0));
             activatedCardsP2.get(pos).remove(0);
@@ -555,11 +581,11 @@ public class SwipeGameController implements Initializable {
     @FXML
     public void swipeDieP1 (int pos){
 
-        if (isSwiping && !isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
+        if (!isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
             goldRank = 2;
         }
 
-        if (isSwiping && !isMyTurn && imageHand1.cards.get(pos).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+        if (!isMyTurn && imageHand1.cards.get(pos).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
             if (diceRollState == 0) {
 
                 p2PtsHand.cards.add(imageHand1.cards.get(pos));
@@ -585,7 +611,7 @@ public class SwipeGameController implements Initializable {
 
         //Dice Roll if tied
 
-        else if (isSwiping && !isMyTurn && imageHand1.cards.get(pos).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+        else if (!isMyTurn && imageHand1.cards.get(pos).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
             oneRollWin = true;
             if (diceRollState == 0) {
 
@@ -612,11 +638,11 @@ public class SwipeGameController implements Initializable {
     @FXML
     public void swipeDieP1A1 (int pos){
 
-        if (isSwiping && !isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
+        if (!isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
             goldRank = 2;
         }
 
-        if (isSwiping && !isMyTurn && activatedCardsP1.get(pos).get(0).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+        if (!isMyTurn && activatedCardsP1.get(pos).get(0).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
             if (diceRollState == 0) {
 
                 p2PtsHand.cards.add(activatedCardsP1.get(pos).get(0));
@@ -647,7 +673,7 @@ public class SwipeGameController implements Initializable {
 
         //Dice Roll if tied
 
-        else if (isSwiping && !isMyTurn && activatedCardsP1.get(pos).get(0).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+        else if (!isMyTurn && activatedCardsP1.get(pos).get(0).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
             oneRollWin = true;
             if (diceRollState == 0) {
 
@@ -678,11 +704,11 @@ public class SwipeGameController implements Initializable {
     @FXML
     public void swipeDieP2A2 (int pos){
 
-        if (isSwiping && isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
+        if (isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
             goldRank = 2;
         }
 
-        if (isSwiping && isMyTurn && activatedCardsP2.get(pos).get(0).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
+        if (isMyTurn && activatedCardsP2.get(pos).get(0).getrank() > activePowerCardHand.cards.get(0).getrank() + goldRank) {
             if (diceRollState == 0) {
 
                 p1PtsHand.cards.add(activatedCardsP2.get(pos).get(0));
@@ -713,7 +739,7 @@ public class SwipeGameController implements Initializable {
 
         //Dice Roll if tied
 
-        else if (isSwiping && isMyTurn && activatedCardsP2.get(pos).get(0).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+        else if (isMyTurn && activatedCardsP2.get(pos).get(0).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
             oneRollWin = true;
             if (diceRollState == 0) {
 
@@ -744,7 +770,7 @@ public class SwipeGameController implements Initializable {
     @FXML
     public void swipeDieP2 (int pos){
 
-        if (isSwiping && isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
+        if (isMyTurn && activeSwipeCardHand.cards.get(0).toString().contains("Gold")) {
             goldRank = 2;
         }
 
@@ -774,7 +800,7 @@ public class SwipeGameController implements Initializable {
 
         //Dice Roll if tied
 
-        else if (isSwiping && isMyTurn && imageHand2.cards.get(pos).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
+        else if (isMyTurn && imageHand2.cards.get(pos).getrank() == activePowerCardHand.cards.get(0).getrank() + goldRank) {
             oneRollWin = true;
             if (diceRollState == 0) {
 
@@ -1398,11 +1424,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p1A1 () {
-        if(!activatedCardsP1.get(0).get(0).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(0).get(0).toString().isEmpty() && isMyTurn) {
             activePowerCardHand.add(activatedCardsP1.get(0).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP1.get(0).get(1).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(0).get(1).toString().isEmpty() && isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP1.get(0).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP1.get(0).remove(0);
@@ -1421,11 +1447,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p1A2 () {
-        if(!activatedCardsP1.get(1).get(0).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(1).get(0).toString().isEmpty() && isMyTurn) {
             activePowerCardHand.add(activatedCardsP1.get(1).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP1.get(1).get(1).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(1).get(1).toString().isEmpty() && isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP1.get(1).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP1.get(1).remove(0);
@@ -1442,11 +1468,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p1A3 () {
-        if(!activatedCardsP1.get(2).get(0).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(2).get(0).toString().isEmpty() && isMyTurn) {
             activePowerCardHand.add(activatedCardsP1.get(2).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP1.get(2).get(1).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(2).get(1).toString().isEmpty() && isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP1.get(2).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP1.get(2).remove(0);
@@ -1463,11 +1489,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p1A4 () {
-        if(!activatedCardsP1.get(3).get(0).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(3).get(0).toString().isEmpty() && isMyTurn) {
             activePowerCardHand.add(activatedCardsP1.get(3).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP1.get(3).get(1).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(3).get(1).toString().isEmpty() && isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP1.get(3).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP1.get(3).remove(0);
@@ -1485,11 +1511,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p1A5 () {
-        if(!activatedCardsP1.get(4).get(0).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(4).get(0).toString().isEmpty() && isMyTurn) {
             activePowerCardHand.add(activatedCardsP1.get(4).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP1.get(4).get(1).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(4).get(1).toString().isEmpty() && isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP1.get(4).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP1.get(4).remove(0);
@@ -1507,11 +1533,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p1A6 () {
-        if(!activatedCardsP1.get(5).get(0).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(5).get(0).toString().isEmpty() && isMyTurn) {
             activePowerCardHand.add(activatedCardsP1.get(5).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP1.get(5).get(1).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(5).get(1).toString().isEmpty() && isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP1.get(5).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP1.get(5).remove(0);
@@ -1528,11 +1554,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p1A7 () {
-        if(!activatedCardsP1.get(6).get(0).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(6).get(0).toString().isEmpty() && isMyTurn) {
             activePowerCardHand.add(activatedCardsP1.get(6).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP1.get(6).get(1).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(6).get(1).toString().isEmpty() && isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP1.get(6).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP1.get(6).remove(0);
@@ -1549,11 +1575,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p1A8 () {
-        if(!activatedCardsP1.get(7).get(0).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(7).get(0).toString().isEmpty() && isMyTurn) {
             activePowerCardHand.add(activatedCardsP1.get(7).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP1.get(7).get(1).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(7).get(1).toString().isEmpty() && isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP1.get(7).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP1.get(7).remove(0);
@@ -1570,11 +1596,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p1A9 () {
-        if(!activatedCardsP1.get(8).get(0).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(8).get(0).toString().isEmpty() && isMyTurn) {
             activePowerCardHand.add(activatedCardsP1.get(8).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP1.get(8).get(1).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(8).get(1).toString().isEmpty() && isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP1.get(8).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP1.get(8).remove(0);
@@ -1591,11 +1617,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p1A10 () {
-        if(!activatedCardsP1.get(9).get(0).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(9).get(0).toString().isEmpty() && isMyTurn) {
             activePowerCardHand.add(activatedCardsP1.get(9).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP1.get(9).get(1).toString().isEmpty() && isMyTurn && isSwiping) {
+        if(!activatedCardsP1.get(9).get(1).toString().isEmpty() && isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP1.get(9).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP1.get(9).remove(0);
@@ -1886,11 +1912,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p2A1 () {
-        if(!activatedCardsP2.get(0).get(0).toString().isEmpty() && !isMyTurn && isSwiping) {
+        if(!activatedCardsP2.get(0).get(0).toString().isEmpty() && !isMyTurn) {
             activePowerCardHand.add(activatedCardsP2.get(0).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP2.get(0).get(1).toString().isEmpty() && !isMyTurn && isSwiping) {
+        if(!activatedCardsP2.get(0).get(1).toString().isEmpty() && !isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP2.get(0).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP2.get(0).remove(0);
@@ -1912,11 +1938,11 @@ public class SwipeGameController implements Initializable {
 
     @FXML
     public void p2A2 () {
-        if(!activatedCardsP2.get(1).get(0).toString().isEmpty() && !isMyTurn && isSwiping) {
+        if(!activatedCardsP2.get(1).get(0).toString().isEmpty() && !isMyTurn) {
             activePowerCardHand.add(activatedCardsP2.get(1).get(0));
             activePowerCard.setImage(activePowerCardHand.dealHandImage(0).getImage(activePowerCardHand.dealHandImage(0)));
         }
-        if(!activatedCardsP2.get(1).get(1).toString().isEmpty() && !isMyTurn && isSwiping) {
+        if(!activatedCardsP2.get(1).get(1).toString().isEmpty() && !isMyTurn) {
             activeSwipeCardHand.add(activatedCardsP2.get(1).get(1));
             activeSwipeCard.setImage(activeSwipeCardHand.dealHandImage(0).getImage(activeSwipeCardHand.dealHandImage(0)));
             activatedCardsP2.get(1).remove(0);
